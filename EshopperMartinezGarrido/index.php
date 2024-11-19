@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<?php
+//1. Declaración y definición de arreglos en PHP
+$BDProductos = array(0,"CERO",0,"");
+ $i=0; $iProductos=1; 
+ $filas=file('archivo.txt'); 
+ //2. Lectura y procesamiento de los datos del archivo
+ foreach($filas as $value){
+    list($id, $producto, $precio, $categoria) = explode(",", $value);
+    array_push($BDProductos, $id);
+    array_push($BDProductos, $producto);
+    array_push($BDProductos, $precio);
+    array_push($BDProductos, $categoria);
+    $iProductos++;
+  }
+// 3. Se define la base de datos del almacen y ventas
+  $BDAlmacen = array( 
+    array(1, 2, 3, 4, 5,6,7), //El IDProducto
+    array(0,10, 5,15, 3,78,234)); //Las Existencias
+
+  $iAlmacen = 2; //El No. de existencias
+  $BDVentas = array(
+    array(2,3), //El IDProducto
+    array(2,1), //La Cantidad
+    array(700, 200)); //El Monto
+  $iVentas = 2; //El No. de ventas al momento
+?>
+<!-- 4. Empieza la estructura del codigo en lenguaje html: Este bloque  contiene metaetiquetas que configuran el charset y la vista en dispositivos móviles (viewport), junto con un título de página y enlaces a archivos CSS que proporcionan los estilos visuales para la página-->
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Software Punto de Venta" content="">
+    <meta name="Martínez Garrido" content="">
+    <title>Inicio | E-Shopper</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<!--5.-Aquí comienza el encabezado de la página con información de contacto y la estructura básica de navegación. Usa clases de Bootstrap (col-sm-6, container, nav-pills) para el diseño de columnas y estilo de los enlaces.
+Menú de productos-->
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +618-324-8458</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> atencionclientes@gmail.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+						</div>						
+					</div>
+					<!--6.-Este bloque muestra el menú principal de navegación con enlaces a las páginas de pago (checkout.php), carrito (cart.php), y login (login.php) además agregamos el botón agregar-->
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<li><a href="agregarproductos.php"target="_blank"><i
+								class="fa fa-plus"></i>Agregar</a></li>
+							<ul class="nav navbar-nav">
+								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Pagar</a></li>
+								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
+								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="index.php" class="active">Inicio</a></li>
+								<li class="dropdown"><a href="#">Comprar<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.php">Productos</a></li>				
+										<li><a href="checkout.php">Pagar</a></li> 
+										<li><a href="cart.php">Carrito</a></li> 
+										<li><a href="login.php">Login</a></li> 
+                                    </ul>
+                                </li> 
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<section id="slider"><!--slider-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>	
+						</ol>
+						
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="col-sm-6">
+									<h1><span>E</span>-SHOPPER</h1>
+									<h2>Proyecto</h2>
+									<p>Software Punto de Venta de Ropa </p>								
+								</div>
+								<div class="col-sm-6">
+									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
+									<img src="images/home/pricing.png"  class="pricing" alt="" />
+								</div>
+							</div>
+							
+						</div>
+						
+						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section><!--/slider-->
+<!--7.- Se agregan categorias a la pagina "Damas, Caballeros y niños-->
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Categoría</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Damas</a></h4>
+-<h4 class="panel-title"><a href="#">Caballeros</a></
+h4>
+-<h4 class="panel-title"><a href="#">niños</a></
+h4>
+									
+								</div>
+							</div>
+						</div><!--/category-products-->
+												
+						<div class="shipping text-center"><!--shipping-->
+							<img src="images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+					
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">Catálogo de Productos</h2>
+<!--8.- Despliegue de Productos desde PHP:
+Este bloque PHP genera dinámicamente los productos que se muestran en la página.
+$n = 4 es el índice de inicio para el primer producto.
+El ciclo for recorre todos los productos, mostrando la imagen, el precio y el nombre de cada producto, y agrega un botón de "Agregar al Carrito".
+$img = $BDProductos[$n] obtiene el nombre de la imagen del producto desde el arreglo $BDProductos.
+La variable $n se incrementa por 4 en cada iteración para pasar al siguiente producto (ya que cada producto tiene 4 elementos: id, nombre, precio y categoría).-->
+						<?php
+						$n=4;
+   for ($i=1; $i< $iProductos;$i++){      
+?>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<?php
+$img = $BDProductos [$n];
+?>
+<!--9.-Se modifica el tamaño de como se mostraran las imagenes de los productos y se enlaza con agregarproductos.php por medio del botón agregar al carrito-->
+<img src="images/home/<?php echo $img;?>.jpg" width="210" height="180" alt="" />
+<h2><?php echo "$".$BDProductos [$n+2];?></h2>
+<p> <?php echo $BDProductos [$n+1];?></p>
+<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
+</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2><?php echo $BDProductos [$n+1]; ?></h2>
+<p><?php echo $BDProductos [$n+2];?></p>										
+<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
+											</div>
+										</div>
+								</div>								
+							</div>
+						</div>
+						<?php
+						$n+=4; 
+					} 
+					?>
+						
+					</div><!--features_items-->
+					
+					
+			<!--10.- Se agrega una función para acomodar mejor los productos la sección llamanda "Productos recomendados"-->
+					<div class="recommended_items"><!--recommended_items-->
+						<h2 class="title text-center">Productos Recomendados</h2>
+						
+						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="item active">	
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend1.jpg" alt="" />
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							  </a>
+							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							  </a>			
+						</div>
+					</div><!--/recommended_items-->
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>e</span>-shopper</h2>
+							<p>Proyecto Software Punto de Venta</p>
+						</div>
+					</div>
+					
+					<div class="col-sm-3">
+						<div class="address">
+							<img src="images/home/map.png" alt="" />
+							<p>Durango, Dgo. México</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2024 E-SHOPPER Inc. Todos los Derechos</p>					
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	  
+    <script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.scrollUp.min.js"></script>
+	<script src="js/price-range.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

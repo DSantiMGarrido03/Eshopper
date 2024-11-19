@@ -1,0 +1,9 @@
+1, Blusa,100,Damas
+2, Lentes,380,Caballeros
+3, Playera Azul,250,Caballeros
+4, Blusa Ligera,100,Damas
+5, Vestido,450,Damas
+6, Zapatos,2000,Caballeros
+7, Sudadera hombre,300,Caballeros
+8, Reloj Hombre,3000,Caballeros
+9, Sudadera Mujer,300,Damas
